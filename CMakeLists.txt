@@ -6,6 +6,11 @@ set(CMAKE_CXX_STANDARD 14)
 # Adds the files that are part of the project
 add_executable(tile-editor src/main.cpp src/Constants.h
         src/Editor.cpp src/Editor.h
+        src/Entity.cpp src/Entity.h
+        src/EntityManager.cpp src/EntityManager.h
+        src/AssetManager.cpp src/AssetManager.h
+        src/FontManager.cpp src/FontManager.h
+        src/TextureManager.cpp src/TextureManager.h
         )
 
 # Tells CMake that the find scripts are inside inside subfolder /cmake

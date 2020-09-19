@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 
 class AssetManager;
+class EntityManager;
 
 class Editor {
 public:

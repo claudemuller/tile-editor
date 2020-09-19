@@ -1,0 +1,8 @@
+#ifndef TILE_EDITOR_ENTITYMANAGER_H
+#define TILE_EDITOR_ENTITYMANAGER_H
+
+class EntityManager {
+
+};
+
+#endif //TILE_EDITOR_ENTITYMANAGER_H

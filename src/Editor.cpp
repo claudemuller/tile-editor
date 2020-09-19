@@ -1,9 +1,13 @@
 #include <iostream>
 #include "Editor.h"
 #include "Constants.h"
+#include "Entity.h"
+#include "EntityManager.h"
 
 SDL_Renderer* Editor::mRenderer;
 SDL_Event Editor::mEvent;
+EntityManager entityManager;
+AssetManager* Editor::mAssetManager = new AssetManager(&entityManager);
 SDL_Rect Editor::mCamera = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 bool Editor::mDebug;
 
@@ -91,7 +95,7 @@ void Editor::update() {
 
 	// TODO: rather control this with a DEBUG_LAYER.
 	if (Editor::mDebug) {
-//		Entity* lblFPS = entityManager.getEntity("ui-level-name");
+//		Entity* lblFPS = mEntityManager->getEntity("ui-level-name");
 //		if (lblFPS != NULL) {
 //			TextLabelComponent* lblFPSText = lblFPS->getComponent<TextLabelComponent>();
 //			lblFPSText->setLabelText(std::to_string(mCurrentFPS), "charriot-font");
@@ -104,7 +108,7 @@ void Editor::update() {
 	// Sets the new ticks fo the current frame to be used in the next pass
 	mLastFrameTime = SDL_GetTicks();
 
-//	entityManager.update(deltaTime);
+	entityManager.update(deltaTime);
 
 	checkCollisions();
 //	Benchmark::log();
@@ -115,10 +119,10 @@ void Editor::render() {
 	SDL_SetRenderDrawColor(mRenderer, 21, 21, 21, 255);
 	SDL_RenderClear(mRenderer);
 
-//	if (!entityManager.hasEntities()) {
-//		return;
-//	}
-//	entityManager.render();
+	if (!entityManager.hasEntities()) {
+		return;
+	}
+	entityManager.render();
 
 	SDL_RenderPresent(mRenderer);
 }
@@ -134,6 +138,8 @@ void Editor::checkCollisions() {
 void Editor::destroy() {
 //	Benchmark::stop();
 
+	mAssetManager->clearData();
+	delete mAssetManager;
 	SDL_DestroyRenderer(mRenderer);
 	SDL_DestroyWindow(mWindow);
 	TTF_Quit();
